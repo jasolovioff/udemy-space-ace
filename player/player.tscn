@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=3 uid="uid://ch0wljcle1k5a"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_belw0"]
+[ext_resource type="Texture2D" uid="uid://1cmyp3884m6e" path="res://assets/ships/ships_human_1.png" id="1_ghs0n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_44oan"]
+radius = 15.1327
+
+[sub_resource type="Animation" id="Animation_fsd2d"]
+resource_name = "fly"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_6njvx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_afkcr"]
+resource_name = "turn"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kx4q1"]
+_data = {
+"RESET": SubResource("Animation_6njvx"),
+"fly": SubResource("Animation_fsd2d"),
+"turn": SubResource("Animation_afkcr")
+}
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_belw0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ghs0n")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_44oan")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "fly"
+libraries = {
+"": SubResource("AnimationLibrary_kx4q1")
+}
